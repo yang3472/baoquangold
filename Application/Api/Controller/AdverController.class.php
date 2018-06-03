@@ -12,6 +12,12 @@ use Api\Model\AdverModel;
 use Common\Common\ReturnCode;
 use Think\Controller;
 class AdverController extends  Controller {
+    public function  __construct(){
+        parent::__construct();
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: POST,GET,OPTIONS');
+        header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+    }
     /**
      * 获取广告
      */

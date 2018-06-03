@@ -9,6 +9,12 @@ namespace Api\Controller;
 use Api\Model\ProductModel;
 use Think\Controller;
 class ProductController extends  Controller{
+    public function  __construct(){
+        parent::__construct();
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: POST,GET,OPTIONS');
+        header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+    }
     /**
      * 产品列表
      */

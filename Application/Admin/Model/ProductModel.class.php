@@ -106,6 +106,7 @@ class ProductModel extends  Model{
         $data['weight']=ArrayHelper::getVal($input,'weight',0);
         $data['spec']=ArrayHelper::getVal($input,'spec','');
         $data['purpose']=ArrayHelper::getVal($input,'purpose','');
+        $data['descrip']=ArrayHelper::getVal($input,'descrip','');
         $data['detail']=ArrayHelper::getVal($input,'detail','');
         foreach($data as $v){
             if(!$v){

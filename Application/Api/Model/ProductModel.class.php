@@ -57,7 +57,8 @@ class ProductModel extends  Model{
                      'material',
                      'weight',
                      'spec',
-                     'purpose'
+                     'purpose',
+                     'descrip'
                  ])
              ->where(['id'=>$id])
              ->find();
@@ -78,7 +79,7 @@ class ProductModel extends  Model{
          }else if($device=='mobile'){
              $where_data['img_type']=2;
          }
-         $rs= M('product')->field(['product.id','product_type','product_name','img_url'])
+         $rs= M('product')->field(['product.id','product_type','descrip','product_name','img_url'])
              ->join('product_img on product.id=product_img.product_id')
              ->where($where_data)
              ->select() ;

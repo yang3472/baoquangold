@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- start: Meta -->
+    <meta charset="utf-8">
+    <title>后台管理系统</title>
+    <meta name="description" content="后台管理系统">
+    <meta name="author" content="Yang jing qin">
+    <meta name="keyword" content="Metro, Metro UI, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <!-- end: Meta -->
+    <include file="./Application/Admin/View/Public/header.html"/>
+    <script type="text/javascript" src="__PUBLIC__/common/js/date/WdatePicker.js"></script>
+</head>
+
+<body>
+<!-- start: Header -->
+<include file="./Application/Admin/View/Public/right_top.html"/><!--头部-->
+
+<div class="container-fluid-full" style="height: 600px;overflow: auto" >
+    <div class="row-fluid">
+
+        <!-- start: Main Menu -->
+        <include file="./Application/Admin/View/Public/left.html"/><!--左边菜单-->
+        <!-- end: Main Menu -->
+
+        <noscript>
+            <div class="alert alert-block span10">
+                <h4 class="alert-heading">Warning!</h4>
+                <p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
+            </div>
+        </noscript>
+
+        <!-- start: Content -->
+        <div id="content" class="span10">
+
+            <ul class="breadcrumb">
+                <li>
+                    <i class="icon-home"></i>
+                    <a href="#">首页</a>
+                    <i class="icon-angle-right"></i>
+                </li>
+                <li><a href="#">产品管理</a><i class="icon-angle-right"></i></li>
+                <li><a href="#">产品列表</a></li>
+            </ul>
+            <div class="panel-body">
+                    <form class="search_form" action="" method="get">
+                        <div class="form-inline" style="margin-bottom: 10px">
+                            <select name="product_type" id="product_type">
+                                <option value="" >产品类型</option>
+                                <foreach name="productCategoryConfig" item="vo">
+                                    <option value="{$vo.id}" <if condition="$Think.get.product_type eq $vo.id "> selected</if> >{$vo.category_name}</option>
+                                </foreach>
+                            </select>
+                            <input class="form-control" style="width: 150px" value="{$Think.get.product_name}" id="product_name" name="product_name" placeholder="产品名称" type="text">
+                            <input class="form-control" style="width: 150px" value="{$Think.get.material}" id="material" name="material" placeholder="产品材质" type="text">
+                            <input class="form-control" style="width: 150px" value="{$Think.get.purpose}" id="purpose" name="purpose" placeholder="产品用途" type="text">
+                            <button type="button" class="btn btn-primary" onclick="javascript:$('.search_form').submit()" >搜索</button>
+                        </div>
+                    </form>
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                        <tr>
+                            <th>产品分类</th>
+                            <th>产品名称</th>
+                            <th>产品材质</th>
+                            <th>产品用途</th>
+                            <th>添加时间</th>
+                            <th>最近修改时间</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <foreach name="data"  item="vo">
+                        <tr>
+                            <td>
+                                <foreach name="productCategoryConfig" item="vp">
+                                    <if condition="$vo.product_type eq $vp[id]">
+                                        {$vp.category_name}
+                                    </if>
+                                </foreach>
+                            </td>
+                            <td>{$vo.product_name}</td>
+                            <td>{$vo.material}</td>
+                            <td>{$vo.purpose}</td>
+                            <td>{$vo.create_time}</td>
+                            <td>{$vo.update_time}</td>
+                            <td>
+                                <a href="{$Think.config.INDEX_MODE}/admin/product/edit?id={$vo.id}" class="badge badge-success" style="cursor: pointer">编辑</a>
+                                <a href="javascript:void(0)" onclick="del({$vo.id})" class="badge label-important" style="cursor: pointer">删除</a>
+                            </td>
+                        </tr>
+                        </foreach>
+                        </tbody>
+                    </table>
+                </div>
+               <div  style="float: right" class="sabrosus">{$page}</div>
+        </div><!--/.fluid-container-->
+        <!-- end: Content -->
+   </div><!--/fluid-row-->
+</div>
+<include file="./Application/Admin/View/Public/footer.html"/><!--底部-->
+
+</body>
+</html>
+<script>
+    function del(id){
+        if(confirm('你确定要删除吗？')){
+            MyPost(INDEX_MODE+'/admin/product/delProduct',
+                    {
+                        id: id
+                    },
+                    null,
+                    null,
+                    function (data) {
+                        window.location.reload();
+                    },
+                    function (data, msg, code) {
+                        alert(msg);
+                    }
+            );
+        }
+
+    }
+</script>

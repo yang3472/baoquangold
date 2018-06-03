@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- start: Meta -->
+    <meta charset="utf-8">
+    <title>后台管理系统</title>
+    <meta name="description" content="后台管理系统">
+    <meta name="author" content="Yang jing qin">
+    <meta name="keyword" content="Metro, Metro UI, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <!-- end: Meta -->
+    <include file="./Application/Admin/View/Public/header.html"/>
+</head>
+
+<body>
+<!-- start: Header -->
+<include file="./Application/Admin/View/Public/right_top.html"/><!--头部-->
+
+<div class="container-fluid-full" style="height: 600px;overflow: auto" >
+    <div class="row-fluid">
+
+        <!-- start: Main Menu -->
+        <include file="./Application/Admin/View/Public/left.html"/><!--左边菜单-->
+        <!-- end: Main Menu -->
+
+        <noscript>
+            <div class="alert alert-block span10">
+                <h4 class="alert-heading">Warning!</h4>
+                <p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
+            </div>
+        </noscript>
+
+        <!-- start: Content -->
+        <div id="content" class="span10">
+
+            <ul class="breadcrumb">
+                <li>
+                    <i class="icon-home"></i>
+                    <a href="#">首页</a>
+                    <i class="icon-angle-right"></i>
+                </li>
+                <li><a href="#">后台用户管理</a><i class="icon-angle-right"></i></li>
+                <li><a href="#">添加/编辑用户</a></li>
+            </ul>
+
+            <div class="panel-body">
+                <if condition="$data.user_name eq '' " >
+                <h4 style="text-align: center">该用户不存在或您没有改权限</h4>
+                <else/>
+                <form class="form-horizontal" style="margin-top: 10px">
+                    <input type="hidden" value="{$id}" id="id" >
+
+                    <div class="control-group">
+                        <label class="control-label"><span style="color: red">*</span>用户名</label>
+                        <div class="controls">
+                            <label type="text" style="border: none" class="form-control" >{$data.user_name}</label>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="real_name"><span style="color: red">*</span>真实姓名</label>
+                        <div class="controls">
+                            <input class="input-xlarge" id="real_name" value="{$data.real_name}" placeholder="请输入真实姓名" type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" id="submit" class="btn btn-primary">提交</button>
+                    </div>
+                </form>
+
+            </div>
+            </if>
+            </div><!--/.fluid-container-->
+            <!-- end: Content -->
+        </div><!--/#content.span10-->
+    </div><!--/fluid-row-->
+
+</div>
+<include file="./Application/Admin/View/Public/footer.html"/><!--底部-->
+
+</body>
+</html>
+<script>
+    $('#submit').click(function(){
+        var id=$('#id').val().trim();
+        var real_name=$('#real_name').val().trim();
+        if(real_name==''){
+            alert('请输入真实姓名');
+            return;
+        }
+        MyPost(INDEX_MODE+'/admin/user/editInfo',
+                {
+                    operate:'editInfo',
+                    id: id,
+                    real_name: real_name
+                },
+                null,
+                null,
+                function (data) {
+                    alert('操作成功');
+                },
+                function (data, msg, code) {
+                    alert(msg);
+                }
+        );
+    });
+</script>

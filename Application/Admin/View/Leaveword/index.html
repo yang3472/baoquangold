@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- start: Meta -->
+    <meta charset="utf-8">
+    <title>后台管理系统</title>
+    <meta name="description" content="后台管理系统">
+    <meta name="author" content="Yang jing qin">
+    <meta name="keyword" content="Metro, Metro UI, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <!-- end: Meta -->
+    <include file="./Application/Admin/View/Public/header.html"/>
+    <script type="text/javascript" src="__PUBLIC__/common/js/date/WdatePicker.js"></script>
+</head>
+
+<body>
+<!-- start: Header -->
+<include file="./Application/Admin/View/Public/right_top.html"/><!--头部-->
+
+<div class="container-fluid-full">
+    <div class="row-fluid">
+
+        <!-- start: Main Menu -->
+        <include file="./Application/Admin/View/Public/left.html"/><!--左边菜单-->
+        <!-- end: Main Menu -->
+
+        <noscript>
+            <div class="alert alert-block span10">
+                <h4 class="alert-heading">Warning!</h4>
+                <p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
+            </div>
+        </noscript>
+
+        <!-- start: Content -->
+        <div id="content" class="span10" style="height: 600px;overflow: auto" >
+
+
+            <ul class="breadcrumb">
+                <li>
+                    <i class="icon-home"></i>
+                    <a href="#">首页</a>
+                    <i class="icon-angle-right"></i>
+                </li>
+                <li><a href="#">留言管理</a></li>
+            </ul>
+
+            <div class="panel-body">
+                <form class="search_form" action="" method="get">
+                    <div class="form-inline" style="margin-bottom: 10px">
+                        <select class="form-control" name="status" id="status">
+                        <option value="-1" <if condition="$Think.get.status eq '-1' "> selected="selected" </if> >处理状态</option>
+                        <option value="1"  <if condition="$Think.get.status eq '1' "> selected="selected" </if> >已处理</option>
+                        <option value="0"  <if condition="$Think.get.status eq '0' "> selected="selected" </if> >未处理</option>
+                        </select>
+                        <label for="start_time">留言时间：</label>
+                        <input type="text" class="form-control" placeholder="开始时间" name="start_time" id="start_time" value="{$Think.get.start_time}"
+                                   style="width: 150px" onclick="WdatePicker()">
+                            <label for="end_time">-</label>
+                            <input type="email" class="form-control" placeholder="结束时间" name="end_time" id="end_time"
+                                   value="{$Think.get.end_time}" style="width: 150px" onclick="WdatePicker({maxDate:'%y-%M-%d'})">
+
+                        <button type="button" class="btn btn-primary" onclick="javascript:$('.search_form').submit()" >搜索</button>
+                    </div>
+                </form>
+
+                <table class="table table-hover table-bordered">
+                    <thead>
+                    <tr>
+                        <th>姓名</th>
+                        <th>联系电话</th>
+                        <th>公司名称</th>
+                        <th>设计需求</th>
+                        <th>处理状态</th>
+                        <th>留言时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <foreach name="data" item="vo">
+                    <tr>
+                        <td>{$vo.name}</td>
+                        <td>{$vo.tel}</td>
+                        <td>{$vo.company}</td>
+                        <td>{$vo.content}</td>
+                        <td>
+                            <if condition="$vo.status eq '1' ">
+                            <span style="color: #5cb85c">已处理</span>
+                            <else />
+                            未处理
+                            </if>
+                        </td>
+                        <td>{$vo.create_time}</td>
+                        <td>
+                            <if condition="$vo.status eq '0'">
+                            <span class="badge badge-success" style="cursor: pointer" onclick="changeStatus(1,{$vo.id})" >处理</span>
+                            <else />
+                            <span class="badge badge-default">处理</span>
+                            </if>
+                            <span class="badge label-important" style="cursor: pointer" onclick="changeStatus(2,{$vo.id})" >删除</span>
+                        </td>
+                    </tr>
+                    </foreach>
+                    </tbody>
+                </table>
+            </div>
+            <div  style="float: right" class="sabrosus">{$page}</div>
+        </div><!--/.fluid-container-->
+        <!-- end: Content -->
+    </div><!--/#content.span10-->
+</div><!--/fluid-row-->
+<include file="./Application/Admin/View/Public/footer.html"/><!--底部-->
+
+</body>
+</html>
+<script>
+    function changeStatus(type,id){
+        if(type==2){
+            if(! confirm('您确定要删除吗？')){
+                return false;
+            }
+        }
+        MyPost(INDEX_MODE+'/admin/leaveword/changeStatus',
+                {
+                    type: type,
+                    id: id
+                },
+                null,
+                null,
+                function (data) {
+                    window.location.reload();
+                },
+                function (data, msg, code) {
+                    alert(msg);
+                }
+        );
+    }
+</script>

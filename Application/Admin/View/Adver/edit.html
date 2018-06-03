@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- start: Meta -->
+    <meta charset="utf-8">
+    <title>后台管理系统</title>
+    <meta name="description" content="后台管理系统">
+    <meta name="author" content="Yang jing qin">
+    <meta name="keyword" content="Metro, Metro UI, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <!-- end: Meta -->
+    <include file="./Application/Admin/View/Public/header.html"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/uploadify/uploadify.css">
+</head>
+
+<body>
+<!-- start: Header -->
+<include  file="./Application/Admin/View/Public/right_top.html"/><!--头部-->
+
+<div class="container-fluid-full" style="height: 600px;overflow: auto" >
+    <div class="row-fluid">
+
+        <!-- start: Main Menu -->
+        <include file="./Application/Admin/View/Public/left.html"/><!--左边菜单-->
+        <!-- end: Main Menu -->
+
+        <!-- start: Content -->
+        <div id="content" class="span10">
+
+            <ul class="breadcrumb">
+                <li>
+                    <i class="icon-home"></i>
+                    <a href="#">首页</a>
+                    <i class="icon-angle-right"></i>
+                </li>
+                <li><a href="#">广告管理</a><i class="icon-angle-right"></i></li>
+                <li><a href="#">添加/编辑广告</a></li>
+            </ul>
+
+            <div class="box-content">
+                <form class="form-horizontal">
+                    <input type="hidden" id="id" value="{$id}">
+                    <fieldset>
+                        <div style="float: left">
+                            <div class="control-group">
+                                <label class="control-label" for="position"><span style="color: red">*</span>广告位置</label>
+                                <div class="controls">
+                                    <select name="position" id="position">
+                                        <option value="" >请选择广告位置</option>
+                                        <foreach name="position_config" item="vo">
+                                            <option value="{$vo.id}" <if condition="$data.position eq $vo[id] "> selected</if> >{$vo.remark}</option>
+                                        </foreach>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">
+                                    <span style="color: red">*</span>图片<br/>
+                                </label>
+                                <div class="controls">
+                                    <input type="file" name="file_upload"  id="file_upload"  multiple="true" >
+                                    <div>
+                                        <input id="img_url" class="input-xlarge" readonly type="text" value="{$data.img_url|default=''}"  style="width: 350px" >
+                                        <span class="btn btn-small btn-danger" style="cursor: pointer" onclick="clearImg('img_url')" >清除</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label" for="href_url"><span style="color: red">*</span>跳转地址</label>
+                                <div class="controls">
+                                    http://www.baoquangold.com<input class="input-xlarge" value="{$data.href_url|default=''}" id="href_url" placeholder="请输入跳转地址" type="text">
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label" for="title">标题</label>
+                                <div class="controls">
+                                    <input class="input-xlarge" value="{$data.title|default=''}" id="title" placeholder="请输入图片标题" type="text">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="descrip">描述</label>
+                                <div class="controls">
+                                    <input class="input-xlarge" value="{$data.descrip|default=''}" id="descrip" placeholder="请输入描述" type="text">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="order_sort"><span style="color: red">*</span>排序</label>
+                                <div class="controls">
+                                    <input class="input-xlarge" value="{$data.order_sort|default=''}" id="order_sort" placeholder="请输入排序" type="text">（数字越小越靠前）
+                                </div>
+                            </div>
+                        </div>
+                        <div style="float: right">
+                            <h3>位置示例：</h3>
+                            <foreach name="position_config" item="vo">
+                                <if condition="$vo.img neq '' ">
+                                   <div>{$vo.remark}<a href="{$vo.img}" target="_blank" style="margin-left: 10px;color: red" >点击查看</a></div>
+                                </if>
+                            </foreach>
+                        </div>
+                        <div style="clear: both"></div>
+                        <div class="form-actions">
+                            <button type="button" id="submit" class="btn btn-primary">提交</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+
+
+        </div><!--/.fluid-container-->
+        <!-- end: Content -->
+    </div><!--/#content.span10-->
+</div>
+<include file="./Application/Admin/View/Public/footer.html"/><!--底部-->
+<script src="__PUBLIC__/uploadify/jquery-1.7.1.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/uploadify/uploadify.swf"></script>
+<script src="__PUBLIC__/uploadify/jquery.uploadify.min.js"></script>
+<script type="text/javascript">
+    <?php $timestamp = time();?>
+    $(function() {
+        $('#file_upload').uploadify({
+            'formData'     : {
+                'timestamp' : '<?php echo $timestamp;?>',
+                'token'     : '<?php echo md5('unique_salt' . $timestamp);?>',
+                'folder':'adver/'
+            },
+            'swf'      : '/Public/uploadify/uploadify.swf',
+            'uploader' : INDEX_MODE+'/admin/uploadify/upload',
+            'buttonText':'选择图片',
+            'onUploadSuccess': function (fileObj, data, response) {
+                $('#img_url').val(data);
+            }
+        });
+    });
+</script>
+
+<script>
+    $('#submit').click(function(){
+        var id=$('#id').val();
+        var position=$('#position').val().trim();
+        var img_url=$('#img_url').val().trim();
+        var href_url=$('#href_url').val().trim();
+        var title=$('#title').val().trim();
+        var descrip=$('#descrip').val().trim();
+        var order_sort=$('#order_sort').val().trim();
+        if(position=='0'){
+            alert('请选择广告位置');
+            return;
+        }
+        if(img_url=='' || img_url.indexOf('/')==-1){
+            alert('请先上传图片');
+            return;
+        }
+        if(href_url==''){
+            alert('请输入跳转地址');
+            return;
+        }
+        if(title==''){
+            alert('请输入标题');
+            return;
+        }
+        if(order_sort==''){
+            alert('请输入排序');
+            return;
+        }
+
+        var data={
+            id: id,
+            position: position,
+            img_url: img_url,
+            href_url: href_url,
+            title: title,
+            descrip: descrip,
+            order_sort: order_sort
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: INDEX_MODE+'/admin/adver/edit',
+            data: data,
+            success: function(dt){
+                if(dt=='1'){
+                    alert('操作成功');
+                }else{
+                    alert('操作失败');
+                }
+            }
+        });
+
+    });
+
+    function clearImg(obj){
+        $('#'+obj).val('');
+    }
+</script>
+
+</body>
+</html>

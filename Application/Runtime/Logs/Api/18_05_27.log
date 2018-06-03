@@ -1,0 +1,210 @@
+[ 2018-05-27T11:12:44+08:00 ] 127.0.0.1 /api/news/getList?id=5
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000019s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001308s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000810s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000866s ]
+SQL: SHOW COLUMNS FROM `news` [ RunTime:0.0930s ]
+SQL: SHOW COLUMNS FROM `news` [ RunTime:0.0112s ]
+SQL: SELECT `id`,`title`,`create_time` FROM `news` ORDER BY `create_time` desc LIMIT 0,10   [ RunTime:0.0005s ]
+
+[ 2018-05-27T11:43:25+08:00 ] 127.0.0.1 /api/product/getCategoryProductList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000015s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000957s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000896s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000943s ]
+SQL: SHOW COLUMNS FROM `product` [ RunTime:0.0755s ]
+SQL: SHOW COLUMNS FROM `product` [ RunTime:0.0104s ]
+ERR: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'id' in field list is ambiguous
+
+[ 2018-05-27T11:44:16+08:00 ] 127.0.0.1 /api/product/getCategoryProductList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000015s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000680s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000844s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000897s ]
+SQL: SHOW COLUMNS FROM `product` [ RunTime:0.0457s ]
+SQL: SHOW COLUMNS FROM `product` [ RunTime:0.0136s ]
+SQL: SELECT product.id,`product_type`,`product_name`,`img_url` FROM `product` INNER JOIN product_img on product.id=product_img.product_id  WHERE product.product_type = '1'  [ RunTime:0.0006s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000834s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000883s ]
+
+[ 2018-05-27T11:44:40+08:00 ] 127.0.0.1 /api/product/getCategoryProductList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000012s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000570s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000615s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000653s ]
+SQL: SHOW COLUMNS FROM `product` [ RunTime:0.0526s ]
+SQL: SHOW COLUMNS FROM `product` [ RunTime:0.0540s ]
+SQL: SELECT product.id,`product_type`,`product_name`,`img_url` FROM `product` INNER JOIN product_img on product.id=product_img.product_id  WHERE product.product_type = '1'  [ RunTime:0.0004s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000889s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000950s ]
+
+[ 2018-05-27T11:48:28+08:00 ] 127.0.0.1 /api/product/getCategoryProductList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000017s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000876s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001124s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001195s ]
+SQL: SHOW COLUMNS FROM `product` [ RunTime:0.0396s ]
+
+[ 2018-05-27T11:48:48+08:00 ] 127.0.0.1 /api/product/getCategoryProductList?product_type=1&device=pc
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000018s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001072s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000891s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000945s ]
+SQL: SHOW COLUMNS FROM `product` [ RunTime:0.0245s ]
+SQL: SHOW COLUMNS FROM `product` [ RunTime:0.0127s ]
+SQL: SELECT product.id,`product_type`,`product_name`,`img_url` FROM `product` INNER JOIN product_img on product.id=product_img.product_id  WHERE `product_type` = '1' AND `img_type` = 1  [ RunTime:0.0004s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000862s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000900s ]
+
+[ 2018-05-27T11:49:02+08:00 ] 127.0.0.1 /api/product/getCategoryProductList?product_type=1&device=mobile
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000012s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000721s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000680s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000723s ]
+SQL: SHOW COLUMNS FROM `product` [ RunTime:0.0218s ]
+SQL: SHOW COLUMNS FROM `product` [ RunTime:0.0152s ]
+SQL: SELECT product.id,`product_type`,`product_name`,`img_url` FROM `product` INNER JOIN product_img on product.id=product_img.product_id  WHERE `product_type` = '1' AND `img_type` = 2  [ RunTime:0.0005s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001115s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001180s ]
+
+[ 2018-05-27T11:51:32+08:00 ] 127.0.0.1 /index.php/api/product/getCategoryProductList?product_type=1&device=mobile
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000011s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000671s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000799s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000841s ]
+SQL: SHOW COLUMNS FROM `product` [ RunTime:0.0254s ]
+SQL: SHOW COLUMNS FROM `product` [ RunTime:0.0119s ]
+SQL: SELECT product.id,`product_type`,`product_name`,`img_url` FROM `product` INNER JOIN product_img on product.id=product_img.product_id  WHERE `product_type` = '1' AND `img_type` = 2  [ RunTime:0.0004s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000810s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000880s ]
+
+[ 2018-05-27T11:56:51+08:00 ] 127.0.0.1 /index.php/api/product/getCategoryProductList?product_type=1&device=mobile
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000012s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000813s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000772s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000830s ]
+SQL: SHOW COLUMNS FROM `product` [ RunTime:0.0865s ]
+SQL: SHOW COLUMNS FROM `product` [ RunTime:0.0536s ]
+SQL: SELECT product.id,`product_type`,`product_name`,`img_url` FROM `product` INNER JOIN product_img on product.id=product_img.product_id  WHERE `product_type` = '1' AND `img_type` = 2  [ RunTime:0.0029s ]
+
+[ 2018-05-27T12:07:44+08:00 ] 127.0.0.1 /index.php/api/product/getList?device=mobile
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000010s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000783s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000855s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000902s ]
+SQL: SHOW COLUMNS FROM `product` [ RunTime:0.0186s ]
+SQL: SHOW COLUMNS FROM `product` [ RunTime:0.0127s ]
+ERR: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'create_time' in order clause is ambiguous
+
+[ 2018-05-27T12:08:08+08:00 ] 127.0.0.1 /index.php/api/product/getList?device=mobile
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000021s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000904s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000828s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000887s ]
+SQL: SHOW COLUMNS FROM `product` [ RunTime:0.0229s ]
+SQL: SHOW COLUMNS FROM `product` [ RunTime:0.0142s ]
+SQL: SELECT product.id,`product_type`,`product_name`,`img_url` FROM `product` INNER JOIN product_img on product.id=product_img.product_id  WHERE `product_type` = 4 ORDER BY product.create_time desc LIMIT 0,10   [ RunTime:0.0015s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `product` INNER JOIN product_img on product.id=product_img.product_id  WHERE `product_type` = 4 LIMIT 1   [ RunTime:0.0019s ]
+
+[ 2018-05-27T12:08:15+08:00 ] 127.0.0.1 /index.php/api/product/getList?device=pc
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000013s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000652s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000664s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000707s ]
+SQL: SHOW COLUMNS FROM `product` [ RunTime:0.0329s ]
+SQL: SHOW COLUMNS FROM `product` [ RunTime:0.0883s ]
+SQL: SELECT product.id,`product_type`,`product_name`,`img_url` FROM `product` INNER JOIN product_img on product.id=product_img.product_id  WHERE `product_type` = 3 ORDER BY product.create_time desc LIMIT 0,10   [ RunTime:0.0008s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `product` INNER JOIN product_img on product.id=product_img.product_id  WHERE `product_type` = 3 LIMIT 1   [ RunTime:0.0004s ]
+
+[ 2018-05-27T12:12:16+08:00 ] 127.0.0.1 /index.php/api/product/getList?device=pc
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000015s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000970s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000833s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000881s ]
+SQL: SHOW COLUMNS FROM `product` [ RunTime:0.0280s ]
+SQL: SHOW COLUMNS FROM `product` [ RunTime:0.1023s ]
+SQL: SELECT product.id,`product_type`,`product_name`,`img_url` FROM `product` INNER JOIN product_img on product.id=product_img.product_id  WHERE `product_type` = 3 ORDER BY product.create_time desc LIMIT 0,10   [ RunTime:0.0011s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `product` INNER JOIN product_img on product.id=product_img.product_id  WHERE `product_type` = 3 LIMIT 1   [ RunTime:0.0005s ]
+
+[ 2018-05-27T12:41:13+08:00 ] 127.0.0.1 /index.php/api/product/geDetail?id=1&device=pc
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000013s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000849s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000955s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001011s ]
+ERR: 非法操作:geDetail
+
+[ 2018-05-27T12:41:34+08:00 ] 127.0.0.1 /index.php/api/product/getDetail?id=1&device=pc
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000011s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000483s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000609s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000649s ]
+SQL: SHOW COLUMNS FROM `product` [ RunTime:0.0321s ]
+
+[ 2018-05-27T12:41:49+08:00 ] 127.0.0.1 /index.php/api/product/getDetail?id=1&device=pc
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000016s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000721s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000820s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000879s ]
+SQL: SHOW COLUMNS FROM `product` [ RunTime:0.0345s ]
+SQL: SHOW COLUMNS FROM `product` [ RunTime:0.0219s ]
+SQL: SELECT `product_name`,`detail`,`material`,`weight`,`spec`,`purpose` FROM `product` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0006s ]
+
+[ 2018-05-27T12:46:32+08:00 ] 127.0.0.1 /index.php/api/product/getDetail?id=1&device=pc
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000019s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000876s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000930s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000990s ]
+SQL: SHOW COLUMNS FROM `product` [ RunTime:0.0501s ]
+SQL: SHOW COLUMNS FROM `product` [ RunTime:0.0138s ]
+SQL: SELECT `product_name`,`detail`,`material`,`weight`,`spec`,`purpose` FROM `product` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0004s ]
+
+[ 2018-05-27T13:04:38+08:00 ] 127.0.0.1 /index.php/api/product/getDetail?id=1&device=pc
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000011s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000755s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000809s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000861s ]
+SQL: SHOW COLUMNS FROM `product` [ RunTime:0.0281s ]
+SQL: SHOW COLUMNS FROM `product` [ RunTime:0.0126s ]
+SQL: SELECT `product_name`,`detail`,`material`,`weight`,`spec`,`purpose` FROM `product` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0004s ]
+

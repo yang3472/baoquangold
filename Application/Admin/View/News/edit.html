@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- start: Meta -->
+    <meta charset="utf-8">
+    <title>后台管理系统</title>
+    <meta name="description" content="后台管理系统">
+    <meta name="author" content="Yang jing qin">
+    <meta name="keyword" content="Metro, Metro UI, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <!-- end: Meta -->
+    <include file="./Application/Admin/View/Public/header.html"/>
+    <link rel="stylesheet" href="__PUBLIC__/kindeditor-4.1.10/themes/default/default.css" />
+    <script charset="utf-8" src="__PUBLIC__/kindeditor-4.1.10/kindeditor-min.js"></script>
+    <script charset="utf-8" src="__PUBLIC__/kindeditor-4.1.10/lang/zh_CN.js"></script>
+    <style>
+        textarea {
+            display: block;
+        }
+    </style>
+    <script>
+        var editor;
+        KindEditor.ready(function(K) {
+            editor = K.create('textarea[name="detail"]', {
+                allowFileManager : true
+            });
+            K('input[name=getHtml]').click(function(e) {
+                alert(editor.html());
+            });
+            K('input[name=isEmpty]').click(function(e) {
+                alert(editor.isEmpty());
+            });
+            K('input[name=getText]').click(function(e) {
+                alert(editor.text());
+            });
+            K('input[name=clear]').click(function(e) {
+                editor.html('');
+            });
+        });
+    </script>
+</head>
+
+<body>
+<!-- start: Header -->
+<include file="./Application/Admin/View/Public/right_top.html"/><!--头部-->
+
+<div class="container-fluid-full" style="height: 600px;overflow: auto" >
+    <div class="row-fluid">
+
+        <!-- start: Main Menu -->
+        <include file="./Application/Admin/View/Public/left.html"/><!--左边菜单-->
+        <!-- end: Main Menu -->
+
+        <noscript>
+            <div class="alert alert-block span10">
+                <h4 class="alert-heading">Warning!</h4>
+                <p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
+            </div>
+        </noscript>
+
+        <!-- start: Content -->
+        <div id="content" class="span10">
+
+            <ul class="breadcrumb">
+                <li>
+                    <i class="icon-home"></i>
+                    <a href="#">首页</a>
+                    <i class="icon-angle-right"></i>
+                </li>
+                <li><a href="#">新闻管理</a><i class="icon-angle-right"></i></li>
+                <li><a href="#">添加/编辑新闻</a></li>
+            </ul>
+
+            <div class="panel-body">
+                <form class="form-horizontal">
+                    <input type="hidden" id="id" value="{$id}">
+                    <fieldset>
+                        <div class="control-group">
+                            <label class="control-label" for="title"><span style="color: red">*</span>标题</label>
+                            <div class="controls">
+                                <input class="input-xlarge" value="{$data.title|default=''}" id="title" placeholder="请输入标题" type="text">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="author"><span style="color: red">*</span>作者</label>
+                            <div class="controls">
+                                <input class="input-xlarge" value="{$data.author|default='御泉黄金'}" id="author" placeholder="请输入作者" type="text">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="source_from"><span style="color: red">*</span>来源</label>
+                            <div class="controls">
+                                <input class="input-xlarge" value="{$data.source_from|default=''}" id="source_from" placeholder="请输入来源" type="text">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="detail"><span style="color: red">*</span>内容</label>
+                            <div class="controls">
+                                <textarea name="detail" id="detail" style="width:800px;height:400px;visibility:hidden;">{$data.detail|default=''}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" id="submit" class="btn btn-primary">提交</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div><!--/.fluid-container-->
+            <!-- end: Content -->
+        </div><!--/#content.span10-->
+    </div><!--/fluid-row-->
+
+</div>
+<include file="./Application/Admin/View/Public/footer.html"/><!--底部-->
+
+</body>
+</html>
+<script>
+    $('#submit').click(function(){
+        var id=$('#id').val();
+        var title=$('#title').val().trim();
+        var author=$('#author').val().trim();
+        var source_from=$('#source_from').val().trim();
+        var detail=editor.html().trim();
+        if(title==''){
+            alert('请输入标题');
+            return;
+        }
+        if(author==''){
+            alert('请输入作者');
+            return;
+        }
+        if(source_from==''){
+            alert('请输入来源');
+            return;
+        }
+        if(content==''){
+            alert('请输入内容');
+            return;
+        }
+        MyPost(INDEX_MODE+'/admin/news/editNews',
+                {
+                    id: id,
+                    title: title,
+                    author: author,
+                    source_from: source_from,
+                    detail: detail
+                },
+                null,
+                null,
+                function (data) {
+                    alert('操作成功');
+                },
+                function (data, msg, code) {
+                    alert(msg);
+                }
+        );
+    });
+</script>

@@ -85,10 +85,9 @@ class AdverModel extends  Model{
         $id=ArrayHelper::getVal($input,'id');
         $data['position']=ArrayHelper::getVal($input,'position');
         $data['img_url']=ArrayHelper::getVal($input,'img_url');
-        $href_url=ltrim(ArrayHelper::getVal($input,'href_url'),'/');
+        $data['href_url']=ltrim(ArrayHelper::getVal($input,'href_url'),'/');
         $data['title']=ArrayHelper::getVal($input,'title');
         $data['descrip']=ArrayHelper::getVal($input,'descrip');
-        $data['href_url']='/'.$href_url;
         $data['order_sort']=ArrayHelper::getVal($input,'order_sort');
         if(!$id){
             $ret=M('adver')->add($data);

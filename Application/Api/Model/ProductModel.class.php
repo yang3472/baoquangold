@@ -25,20 +25,23 @@ class ProductModel extends  Model{
          if(!in_array($device,self::$device_arr)){
               makeOutPut(-10,'device--设备参数不正确');
          }
-         $query= M('product')->field(['product.id','product_type','product_name','img_url'])
-               ->join('product_img on product.id=product_img.product_id');
-         if($device=='pc'){
-             $where_data['product_type']=3;
-         }else if($device=='mobile'){
-             $where_data['product_type']=4;
-         }
-         $query->where($where_data);
+         $query= M('product')->field(['id','product_type','product_name']);
          if($getCount){
             return $query->count();
          }
-         return $query->order(['product.create_time'=>'desc'])
+         $rs= $query->order(['product.create_time'=>'desc'])
              ->limit($index,$limit)
              ->select();
+         if($device=='pc'){
+             $img_type=3;
+         }else if($device=='mobile'){
+             $img_type=4;
+         }
+         foreach($rs as &$v ){
+             $img_rs= M('product_img')->where(['product_id'=>$v['id'],'img_type'=>$img_type])->getField('img_url');
+             $v['img_url']=$img_rs;
+         }
+         return $rs;
      }
 
     /**产品详情

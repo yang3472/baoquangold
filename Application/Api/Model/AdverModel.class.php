@@ -10,7 +10,7 @@ use Think\Db;
 use Think\Model;
 class AdverModel extends  Model{
       public function getList($position,$index=0,$limit=50){
-           $rs=  M('adver')->field(['img_url','href_url','title'])
+           $rs=  M('adver')->field(['img_url','href_url','title','descrip'])
                ->where(['position'=>$position])
                ->order(['order_sort'=>'asc','create_time'=>'desc'])
                ->limit($index,$limit)

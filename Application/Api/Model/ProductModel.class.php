@@ -25,22 +25,19 @@ class ProductModel extends  Model{
          if(!in_array($device,self::$device_arr)){
               makeOutPut(-10,'device--设备参数不正确');
          }
-         $query= M('product')->field(['id','product_type','product_name']);
-         if($getCount){
-            return $query->count();
-         }
-         $rs= $query->order(['product.create_time'=>'desc'])
-             ->limit($index,$limit)
-             ->select();
          if($device=='pc'){
              $img_type=3;
          }else if($device=='mobile'){
              $img_type=4;
          }
-         foreach($rs as &$v ){
-             $img_rs= M('product_img')->where(['product_id'=>$v['id'],'img_type'=>$img_type])->getField('img_url');
-             $v['img_url']=$img_rs;
+         $query= M('product')->field(['product.id','product_type','product_name','img_url'])
+             ->join("product_img on product_img.product_id=product.id and img_type={$img_type} ");
+         if($getCount){
+             return $query->count();
          }
+         $rs= $query->order(['product.create_time'=>'desc'])
+             ->limit($index,$limit)
+             ->select();
          return $rs;
      }
 
@@ -65,7 +62,13 @@ class ProductModel extends  Model{
                  ])
              ->where(['id'=>$id])
              ->find();
-         $rs['marque']=array('xxx.jpg','xxx2.jpg');
+          if($device=='pc'){
+             $img_type=5;
+          }else{
+             $img_type=6;
+          }
+          $img=M('product_img')->where(['product_id'=>$id,'img_type'=>$img_type])->getField('img_url',true);
+          $rs['marque']=$img?$img:[];
           return $rs?$rs:[];
      }
 

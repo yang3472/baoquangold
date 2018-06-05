@@ -139,6 +139,9 @@
                                 <input type="file" name="file_upload"  id="upload_img_1"  multiple="false" >
                                 <input id="img_1" class="input-xlarge" readonly type="text" value="{$data.img_1|default=''}"  style="width: 350px" >
                                 <span class="btn btn-small btn-danger" style="cursor: pointer" onclick="clearImg('img_1')" >清除</span>
+                                <if condition="$data.img_1 neq ''">
+                                    &nbsp;&nbsp;&nbsp;<a href="{$data.img_1}" target="_blank"  >查看图片</a>
+                                </if>
                             </div>
                         </div>
                         <div class="control-group">
@@ -148,19 +151,25 @@
                                 <input id="img_2" class="input-xlarge" readonly type="text" value="{$data.img_2|default=''}" style="width: 350px" >
                                 <span class="btn btn-small btn-danger" style="cursor: pointer"  onclick="mobile_img_same_pc(2,1)" >同PC端</span>
                                 <span class="btn btn-small btn-danger" style="cursor: pointer" onclick="clearImg('img_2')" >清除</span>
+                                <if condition="$data.img_2 neq ''">
+                                    &nbsp;&nbsp;&nbsp;<a href="{$data.img_2}" target="_blank"  >查看图片</a>
+                                </if>
                             </div>
                         </div>
                         <div style="border-top: 1px dashed #ccc;margin-bottom: 10px"></div>
                         <div class="control-group">
                             <label class="control-label">
                                 <span style="color: red">*</span>列表展示图（PC端）<br/>
-                                <span>图片规格:282*260px</span><br/>
+                                <span>图片规格:285*260px</span><br/>
                                 <a style="margin-right: 10px;color: red" href="/Public/admin/img/img_list.png" target="_blank" >查看位置</a>
                             </label>
                             <div class="controls">
                                 <input type="file" name="file_upload"  id="upload_img_3"  multiple="false" >
                                 <input id="img_3" class="input-xlarge" readonly type="text" value="{$data.img_3|default=''}" style="width: 350px" >
                                 <span class="btn btn-small btn-danger" style="cursor: pointer" onclick="clearImg('img_3')" >清除</span>
+                                <if condition="$data.img_3 neq ''">
+                                    &nbsp;&nbsp;&nbsp;<a href="{$data.img_3}" target="_blank"  >查看图片</a>
+                                </if>
                             </div>
                         </div>
                         <div class="control-group">
@@ -170,11 +179,14 @@
                                 <input id="img_4" class="input-xlarge" readonly type="text" value="{$data.img_4|default=''}" style="width: 350px" >
                                 <span class="btn btn-small btn-danger" style="cursor: pointer"  onclick="mobile_img_same_pc(4,3)" >同PC端</span>
                                 <span class="btn btn-small btn-danger" style="cursor: pointer" onclick="clearImg('img_4')" >清除</span>
+                                <if condition="$data.img_4 neq ''">
+                                    &nbsp;&nbsp;&nbsp;<a href="{$data.img_4}" target="_blank" >查看图片</a>
+                                </if>
                             </div>
                         </div>
                         <div style="border-top: 1px dashed #ccc;margin-bottom: 10px"></div>
                         <div class="control-group">
-                            <label class="control-label">详情页轮播图（pc端）<br/><span style="color: #ff0000;font-size: 12px;">按住ctrl键可选择多张</span></label>
+                            <label class="control-label">详情页轮播图（pc端,至少4张）<br/><span style="color: #ff0000;font-size: 12px;">按住ctrl键可选择多张</span></label>
                             <div class="controls">
                                 <input type="file" name="file_upload"  id="upload_img_5" multiple="true" >
                                 <div id="img5_queue"></div>

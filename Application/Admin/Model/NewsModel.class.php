@@ -64,7 +64,7 @@ class NewsModel extends  Model{
             'title' => $title,
             'author' => $author,
             'source_from'=>$source_from,
-            'detail'=>$detail,
+            'detail'=>html_entity_decode($detail),
         ];
         if(!$id){
             $data['create_time'] = date('Y-m-d H:i:s');

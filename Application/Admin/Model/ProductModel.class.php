@@ -107,7 +107,7 @@ class ProductModel extends  Model{
         $data['spec']=ArrayHelper::getVal($input,'spec','');
         $data['purpose']=ArrayHelper::getVal($input,'purpose','');
         $data['descrip']=ArrayHelper::getVal($input,'descrip','');
-        $data['detail']=ArrayHelper::getVal($input,'detail','');
+        $data['detail']=html_entity_decode(ArrayHelper::getVal($input,'detail',''));
         foreach($data as $v){
             if(!$v){
                 makeOutPut(-10,'参数错误');

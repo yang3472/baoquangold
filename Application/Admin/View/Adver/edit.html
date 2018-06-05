@@ -69,7 +69,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="href_url"><span style="color: red">*</span>跳转地址</label>
                                 <div class="controls">
-                                    http://www.baoquangold.com<input class="input-xlarge" value="{$data.href_url|default=''}" id="href_url" placeholder="请输入跳转地址" type="text">
+                                    {$Think.config.WEB_HOST}<input class="input-xlarge" value="{$data.href_url|default=''}" id="href_url" placeholder="请输入跳转地址" type="text">
                                 </div>
                             </div>
 

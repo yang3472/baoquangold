@@ -15,6 +15,9 @@ class AdverModel extends  Model{
                ->order(['order_sort'=>'asc','create_time'=>'desc'])
                ->limit($index,$limit)
                ->select();
+          foreach($rs as &$v){
+              $v['href_url']=C('WEB_HOST').ltrim($v['href_url'],'/');
+          }
           return $rs?$rs:[];
       }
 }

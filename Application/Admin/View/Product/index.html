@@ -61,6 +61,7 @@
                     <table class="table table-hover table-bordered">
                         <thead>
                         <tr>
+                            <th>产品id</th>
                             <th>产品分类</th>
                             <th>产品名称</th>
                             <th>产品材质</th>
@@ -73,14 +74,15 @@
                         <tbody>
                         <foreach name="data"  item="vo">
                         <tr>
+                            <td>{$vo.id}</td>
                             <td>
                                 <foreach name="productCategoryConfig" item="vp">
                                     <if condition="$vo.product_type eq $vp[id]">
-                                        {$vp.category_name}
+                                        <a href="{$Think.config.WEB_HOST}pc/#/case?product_type={$vo.product_type}" target="_blank">{$vp.category_name}</a>
                                     </if>
                                 </foreach>
                             </td>
-                            <td>{$vo.product_name}</td>
+                            <td><a href="{$Think.config.WEB_HOST}pc/#/detail?id={$vo.id}" target="_blank" >{$vo.product_name}</a></td>
                             <td>{$vo.material}</td>
                             <td>{$vo.purpose}</td>
                             <td>{$vo.create_time}</td>

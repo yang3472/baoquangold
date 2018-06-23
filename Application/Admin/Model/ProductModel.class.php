@@ -28,18 +28,11 @@ class ProductModel extends  Model{
      */
     public function getList($condition){
         $query= M('product');
+
         $where_data = [];
-        //添加时间
-        if ($start_time = ArrayHelper::getVal($condition, 'start_time')) {
-            if ($end_time = ArrayHelper::getVal($condition, 'end_time')) {
-                $where_data['create_time'] = array(array('egt', date('Y-m-d 00:00:00', strtotime($start_time))), array('elt', date('Y-m-d 23:59:59', strtotime($end_time))), 'and');
-            } else {
-                $where_data['create_time'] = array('egt', date('Y-m-d 00:00:00', strtotime($start_time)));
-            }
-        } else {
-            if ($end_time = ArrayHelper::getVal($condition, 'end_time')) {
-                $where_data['create_time'] = array('elt', date('Y-m-d 23:59:59', strtotime($end_time)));
-            }
+        $special = ArrayHelper::getVal($condition, 'special',-1);
+        if ($special!=-1) {
+            $where_data['special']=$special;
         }
         if($product_type = ArrayHelper::getVal($condition, 'product_type')){
             $where_data['product_type']=$product_type;
@@ -77,21 +70,21 @@ class ProductModel extends  Model{
         $img_5=$img_6=[];
         foreach($img_info as $img){
             if($img['img_type']==1){
-                $product_info['img_1']=$img['img_url'];
+                $product_info['img_1']=ltrim($img['img_url'],'/');
             }else if($img['img_type']==2){
-                $product_info['img_2']=$img['img_url'];
+                $product_info['img_2']=ltrim($img['img_url'],'/');
             }else if($img['img_type']==3){
-                $product_info['img_3']=$img['img_url'];
+                $product_info['img_3']=ltrim($img['img_url'],'/');
             }else if($img['img_type']==4){
-                $product_info['img_4']=$img['img_url'];
+                $product_info['img_4']=ltrim($img['img_url'],'/');
             }else if($img['img_type']==5){
-                array_push($img_5,$img['img_url']);
+                array_push($img_5,ltrim($img['img_url'],'/'));
             }else if($img['img_type']==6){
-                array_push($img_6,$img['img_url']);
+                array_push($img_6,ltrim($img['img_url'],'/'));
             }
         }
-        $product_info['img_5']=$img_5?implode(' ; ',$img_5):'';
-        $product_info['img_6']=$img_6?implode(' ; ',$img_6):'';
+        $product_info['img_5']=$img_5?$img_5:[];
+        $product_info['img_6']=$img_6?$img_6:[];
         return $product_info;
     }
 
@@ -109,16 +102,29 @@ class ProductModel extends  Model{
         $data['descrip']=ArrayHelper::getVal($input,'descrip','');
         $data['detail']=html_entity_decode(ArrayHelper::getVal($input,'detail',''));
         foreach($data as $v){
-            if(!$v){
+            if(empty($v)){
                 makeOutPut(-10,'参数错误');
             }
         }
-        $img_single['img_1']=ArrayHelper::getVal($input,'img_1','');
-        $img_single['img_2']=ArrayHelper::getVal($input,'img_2','');
-        $img_single['img_3']=ArrayHelper::getVal($input,'img_3','');
-        $img_single['img_4']=ArrayHelper::getVal($input,'img_4','');
-        $img_more['img_5']=ArrayHelper::getVal($input,'img_5','');
-        $img_more['img_6']=ArrayHelper::getVal($input,'img_6','');
+        $data['special']=ArrayHelper::getVal($input,'special',0);
+
+        $img_3=ArrayHelper::getVal($input,'img_3','');
+        $img_single['img_3']=$img_3?'/'.ltrim($img_3,'/'):'';
+        $img_4=ArrayHelper::getVal($input,'img_4','');
+        $img_single['img_4']=$img_4?'/'.ltrim($img_4,'/'):'';
+
+        $img_5_0=ArrayHelper::getVal($input,'img_5_0','');
+        $img_5_1=ArrayHelper::getVal($input,'img_5_1','');
+        $img_5_2=ArrayHelper::getVal($input,'img_5_2','');
+        $img_5_3=ArrayHelper::getVal($input,'img_5_3','');
+        $img_5_4=ArrayHelper::getVal($input,'img_5_4','');
+        $img_more_5['img_5_0']=$img_5_0?'/'.ltrim($img_5_0,'/'):'';
+        $img_more_5['img_5_1']=$img_5_1?'/'.ltrim($img_5_1,'/'):'';
+        $img_more_5['img_5_2']=$img_5_2?'/'.ltrim($img_5_2,'/'):'';
+        $img_more_5['img_5_3']=$img_5_3?'/'.ltrim($img_5_3,'/'):'';
+        $img_more_5['img_5_4']=$img_5_4?'/'.ltrim($img_5_4,'/'):'';
+
+        $img_more_6['img_6_0']=ArrayHelper::getVal($input,'img_6_0','');
         if(!$id){
             $data['create_time'] = date('Y-m-d H:i:s');
             $id=$ret= M('product')->add($data,false,true);
@@ -143,36 +149,57 @@ class ProductModel extends  Model{
                    }
                }
             }
-            foreach($img_more as $km=>$vm){
-                $type=explode('_',$km);
-                $img_data['product_id']=$id;
-                $img_data['img_type']=$type[1];
-                if(!$vm){
-                    M('product_img')->where(['product_id'=>$id,'img_type'=>$img_data['img_type'] ])->delete();
-                }else{
-                    if(strpos($vm,';')!==false){
-                         $img_arr=explode(';',$vm);
-                    }else{
-                         $img_arr=array($vm);
-                    }
-                    foreach($img_arr as &$v){
-                        $v=trim($v);
-                    }
-                    $img_url_arr= M('product_img')->where(['product'=>$id,'img_type'=>$img_data['img_type']])->getField('img_url',true);
-                    foreach($img_url_arr as $im){
-                        if(!in_array($im,$img_arr)){
-                            M('product_img')->where(['product_id'=>$id,'img_url'=>$im,'img_type'=>$img_data['img_type']])->delete();
-                        }
-                    }
-                    foreach($img_arr as $im2){
-                        if(in_array($im2,$img_url_arr)){
-                            continue;
-                        }
-                        $img_data['img_url']=$im2;
-                        M('product_img')->add($img_data);
-                    }
+            $img_5=[];
+            foreach($img_more_5 as $km=>$vm){
+                if($vm){
+                    array_push($img_5,$vm);
                 }
             }
+            if(!$img_5){
+                M('product_img')->where(['product_id'=>$id,'img_type'=>5 ])->delete();
+            }else{
+                $img_url_arr= M('product_img')->where(['product_id'=>$id,'img_type'=>5])->getField('img_url',true);
+                foreach($img_url_arr as $im){
+                    if(!in_array($im,$img_5)){
+                        M('product_img')->where(['product_id'=>$id,'img_url'=>$im,'img_type'=>5])->delete();
+                    }
+                }
+                foreach($img_5 as $im2){
+                    if(in_array($im2,$img_url_arr)){
+                        continue;
+                    }
+                    $img_data['img_url']=$im2;
+                    $img_data['img_type']=5;
+                    M('product_img')->add($img_data);
+                }
+            }
+
+
+            $img_6=[];
+            foreach($img_more_6 as $km=>$vm){
+                if($vm){
+                    array_push($img_6,$vm);
+                }
+            }
+            if(!$img_6){
+                M('product_img')->where(['product_id'=>$id,'img_type'=>6 ])->delete();
+            }else{
+                $img_url_arr= M('product_img')->where(['product_id'=>$id,'img_type'=>6])->getField('img_url',true);
+                foreach($img_url_arr as $im){
+                    if(!in_array($im,$img_6)){
+                        M('product_img')->where(['product_id'=>$id,'img_url'=>$im,'img_type'=>6])->delete();
+                    }
+                }
+                foreach($img_6 as $im2){
+                    if(in_array($im2,$img_url_arr)){
+                        continue;
+                    }
+                    $img_data['img_url']=$im2;
+                    $img_data['img_type']=6;
+                    M('product_img')->add($img_data);
+                }
+            }
+
         }
         return true;
     }

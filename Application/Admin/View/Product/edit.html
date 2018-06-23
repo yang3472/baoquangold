@@ -116,12 +116,21 @@
                                 <input class="input-xlarge" value="{$data.purpose|default=''}" id="purpose" placeholder="请输入产品用途" type="text">
                             </div>
                         </div>
+
                         <div class="control-group">
                             <label class="control-label" for="descrip"><span style="color: red">*</span>产品描述</label>
                             <div class="controls">
                                 <input class="input-xlarge" value="{$data.descrip|default=''}" id="descrip" placeholder="请输入产品描述" type="text">
                             </div>
                         </div>
+
+                        <div class="control-group">
+                            <label class="control-label" for="special">特选</label>
+                            <div class="controls">
+                                <input class="input-xlarge" value="1" id="special" name="special" <if condition="$data.special eq '1'">checked</if> type="checkbox">
+                            </div>
+                        </div>
+
                         <div class="control-group">
                             <label class="control-label" for="detail"><span style="color: red">*</span>产品详情</label>
                             <div class="controls">
@@ -131,52 +140,23 @@
 
                         <div class="control-group">
                             <label class="control-label">
-                                <span style="color: red">*</span>分类展示图（PC端）<br/>
-                                <span>图片规格:385*385px</span><br/>
-                                <a style="margin-right: 10px;color: red" href="/Public/admin/img/class_example.png" target="_blank" >查看位置</a>
-                            </label>
-                            <div class="controls">
-                                <input type="file" name="file_upload"  id="upload_img_1"  multiple="false" >
-                                <input id="img_1" class="input-xlarge" readonly type="text" value="{$data.img_1|default=''}"  style="width: 350px" >
-                                <span class="btn btn-small btn-danger" style="cursor: pointer" onclick="clearImg('img_1')" >清除</span>
-                                <if condition="$data.img_1 neq ''">
-                                    &nbsp;&nbsp;&nbsp;<a href="{$data.img_1}" target="_blank"  >查看图片</a>
-                                </if>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">分类展示图（手机端）</label>
-                            <div class="controls">
-                                <input type="file" name="file_upload"  id="upload_img_2" multiple="false" >
-                                <input id="img_2" class="input-xlarge" readonly type="text" value="{$data.img_2|default=''}" style="width: 350px" >
-                                <span class="btn btn-small btn-danger" style="cursor: pointer"  onclick="mobile_img_same_pc(2,1)" >同PC端</span>
-                                <span class="btn btn-small btn-danger" style="cursor: pointer" onclick="clearImg('img_2')" >清除</span>
-                                <if condition="$data.img_2 neq ''">
-                                    &nbsp;&nbsp;&nbsp;<a href="{$data.img_2}" target="_blank"  >查看图片</a>
-                                </if>
-                            </div>
-                        </div>
-                        <div style="border-top: 1px dashed #ccc;margin-bottom: 10px"></div>
-                        <div class="control-group">
-                            <label class="control-label">
                                 <span style="color: red">*</span>列表展示图（PC端）<br/>
-                                <span>图片规格:285*260px</span><br/>
+                                <span>图片规格:385*385px</span><br/>
                                 <a style="margin-right: 10px;color: red" href="/Public/admin/img/img_list.png" target="_blank" >查看位置</a>
                             </label>
                             <div class="controls">
-                                <input type="file" name="file_upload"  id="upload_img_3"  multiple="false" >
-                                <input id="img_3" class="input-xlarge" readonly type="text" value="{$data.img_3|default=''}" style="width: 350px" >
-                                <span class="btn btn-small btn-danger" style="cursor: pointer" onclick="clearImg('img_3')" >清除</span>
+                                {$Think.config.WEB_HOST}<input id="img_3" name="img_3" class="input-xlarge"  type="text" value="{$data.img_3|default=''}" style="width: 350px" >
                                 <if condition="$data.img_3 neq ''">
-                                    &nbsp;&nbsp;&nbsp;<a href="{$data.img_3}" target="_blank"  >查看图片</a>
+                                    &nbsp;&nbsp;&nbsp;<a href="{$Think.config.WEB_HOST}{$data.img_3}" target="_blank"  >查看图片</a>
                                 </if>
                             </div>
                         </div>
+                        <!--
                         <div class="control-group">
                             <label class="control-label">列表展示图（手机端）</label>
                             <div class="controls">
                                 <input type="file" name="file_upload"  id="upload_img_4" multiple="false" >
-                                <input id="img_4" class="input-xlarge" readonly type="text" value="{$data.img_4|default=''}" style="width: 350px" >
+                                <input id="img_4" class="input-xlarge"  type="text" value="{$data.img_4|default=''}" style="width: 350px" >
                                 <span class="btn btn-small btn-danger" style="cursor: pointer"  onclick="mobile_img_same_pc(4,3)" >同PC端</span>
                                 <span class="btn btn-small btn-danger" style="cursor: pointer" onclick="clearImg('img_4')" >清除</span>
                                 <if condition="$data.img_4 neq ''">
@@ -184,30 +164,31 @@
                                 </if>
                             </div>
                         </div>
+                        -->
                         <div style="border-top: 1px dashed #ccc;margin-bottom: 10px"></div>
                         <div class="control-group">
-                            <label class="control-label">详情页轮播图（pc端,至少4张）<br/><span style="color: #ff0000;font-size: 12px;">按住ctrl键可选择多张</span></label>
+                            <label class="control-label">详情页轮播图（4-5张）<br/>图片规格：463*445px</label>
                             <div class="controls">
-                                <input type="file" name="file_upload"  id="upload_img_5" multiple="true" >
-                                <div id="img5_queue"></div>
-                                <textarea id="img_5" style="width: 400px; height: 100px;margin-bottom: 12px" readonly >{$data.img_5|default=''}</textarea><br/>
-                                <a class="btn btn-small btn-danger" href="javascript:$('#upload_img_5').uploadify('upload','*')">开始上传</a>
-                                <span class="btn btn-small btn-danger" style="cursor: pointer" onclick="clearImg('img_5')" >清除</span>
+                                {$Think.config.WEB_HOST}<input id="img_5_0" name="img_5_0" class="input-xlarge"  type="text" value="{$data['img_5'][0]|default=''}" style="width: 350px" >&nbsp;&nbsp;<if condition="$data['img_5'][0] neq ''"><a href="{$Think.config.WEB_HOST}{$data['img_5'][0]}" target="_blank">查看图片</a></if><br/>
+                                {$Think.config.WEB_HOST}<input id="img_5_1" name="img_5_1" class="input-xlarge"  type="text" value="{$data['img_5'][1]|default=''}" style="width: 350px" >&nbsp;&nbsp;<if condition="$data['img_5'][1] neq ''"><a href="{$Think.config.WEB_HOST}{$data['img_5'][1]}" target="_blank">查看图片</a></if><br/>
+                                {$Think.config.WEB_HOST}<input id="img_5_2" name="img_5_2" class="input-xlarge"  type="text" value="{$data['img_5'][2]|default=''}" style="width: 350px" >&nbsp;&nbsp;<if condition="$data['img_5'][2] neq ''"><a href="{$Think.config.WEB_HOST}{$data['img_5'][2]}" target="_blank">查看图片</a></if><br/>
+                                {$Think.config.WEB_HOST}<input id="img_5_3" name="img_5_3" class="input-xlarge"  type="text" value="{$data['img_5'][3]|default=''}" style="width: 350px" >&nbsp;&nbsp;<if condition="$data['img_5'][3] neq ''"><a href="{$Think.config.WEB_HOST}{$data['img_5'][3]}" target="_blank">查看图片</a></if><br/>
+                                {$Think.config.WEB_HOST}<input id="img_5_4" name="img_5_4" class="input-xlarge"  type="text" value="{$data['img_5'][4]|default=''}" style="width: 350px" >&nbsp;&nbsp;<if condition="$data['img_5'][4] neq ''"><a href="{$Think.config.WEB_HOST}{$data['img_5'][4]}" target="_blank">查看图片</a></if><br/>
                             </div>
                         </div>
-
+                        <!--
                         <div class="control-group">
                             <label class="control-label">详情页轮播图（手机端）<br/><span style="color: #ff0000;font-size: 12px;">按住ctrl键可选择多张</span></label>
                             <div class="controls">
                                 <input type="file" name="file_upload"  id="upload_img_6" multiple="true" >
                                 <div id="img6_queue"></div>
-                                <textarea id="img_6" style="width: 400px; height: 100px;margin-bottom: 10px" readonly >{$data.img_6|default=''}</textarea><br/>
+                                <textarea id="img_6" style="width: 400px; height: 100px;margin-bottom: 10px"  >{$data.img_6|default=''}</textarea><br/>
                                 <a class="btn btn-small btn-danger" href="javascript:$('#upload_img_6').uploadify('upload','*')">开始上传</a>
                                 <span class="btn btn-small btn-danger" style="cursor: pointer"  onclick="mobile_img_same_pc(6,5)" >同PC端</span>
                                 <span class="btn btn-small btn-danger" style="cursor: pointer" onclick="clearImg('img_6')" >清除</span>
                             </div>
                         </div>
-
+                        -->
                         <div class="form-actions">
                             <button type="button" id="submit" class="btn btn-primary">提交</button>
                         </div>
@@ -236,21 +217,34 @@
         var spec=$('#spec').val().trim();
         var purpose=$('#purpose').val().trim();
         var descrip=$('#descrip').val().trim();
+        var special= $("#special").is(':checked');
+        if(special){
+            special=1;
+        }else{
+            special=0;
+        }
         var detail=editor.html().trim();
-        var img_1=$('#img_1').val();
-        var img_2=$('#img_2').val();
+        //var img_1=$('#img_1').val();
+        //var img_2=$('#img_2').val();
         var img_3=$('#img_3').val();
-        var img_4=$('#img_4').val();
-        var img_5=$('#img_5').val();
-        var img_6=$('#img_6').val();
+        //var img_4=$('#img_4').val();
+        var img_5_0=$('#img_5_0').val();
+        var img_5_1=$('#img_5_1').val();
+        var img_5_2=$('#img_5_2').val();
+        var img_5_3=$('#img_5_3').val();
+        var img_5_4=$('#img_5_4').val();
+        //var img_6=$('#img_6').val();
+        /*
         if(img_1=='' || img_1.indexOf('/')==-1){
             alert('请上传分类展示图（PC端）');
             return;
         }
+        */
         if(img_3=='' || img_3.indexOf('/')==-1){
-            alert('列表展示图（PC端）');
+            alert('请填写列表展示图路径（PC端）');
             return;
         }
+        /*
         if(img_2.indexOf('/')==-1){
             img_2='';
         }
@@ -261,6 +255,7 @@
             alert('请选择产品分类');
             return;
         }
+        */
         if(product_name==''){
             alert('请输入产品名称');
             return;
@@ -298,13 +293,18 @@
                     spec: spec,
                     purpose: purpose,
                     descrip: descrip,
+                    special:special,
                     detail: detail,
-                    img_1: img_1,
-                    img_2: img_2,
+                    //img_1: img_1,
+                    //img_2: img_2,
                     img_3: img_3,
-                    img_4: img_4,
-                    img_5: img_5,
-                    img_6: img_6
+                    //img_4: img_4,
+                    img_5_0: img_5_0,
+                    img_5_1: img_5_1,
+                    img_5_2: img_5_2,
+                    img_5_3: img_5_3,
+                    img_5_4: img_5_4,
+                    //img_6: img_6
                 };
 
         $.ajax({
@@ -323,127 +323,6 @@
     });
 </script>
 <script type="text/javascript">
-    <?php $timestamp = time();?>
-
-    $(function() {
-        $('#upload_img_1').uploadify({
-            'formData'     : {
-                'timestamp' : '<?php echo $timestamp;?>',
-                'token'     : '<?php echo md5('unique_salt' . $timestamp);?>',
-                'folder':'product/'
-            },
-            'swf'      : '/Public/uploadify/uploadify.swf',
-            'uploader' : INDEX_MODE+'/admin/uploadify/upload',
-            'buttonText':'选择图片',
-            'multi': false,
-            'onUploadSuccess': function (fileObj, data, response) {
-                $('#img_1').val(data);
-            }
-        });
-    });
-
-    $(function() {
-        $('#upload_img_2').uploadify({
-            'formData'     : {
-                'timestamp' : '<?php echo $timestamp;?>',
-                'token'     : '<?php echo md5('unique_salt' . $timestamp);?>',
-                'folder':'product/'
-            },
-            'swf'      : '/Public/uploadify/uploadify.swf',
-            'uploader' : INDEX_MODE+'/admin/uploadify/upload',
-            'buttonText':'选择图片',
-            'multi': false,
-            'onUploadSuccess': function (fileObj, data, response) {
-                $('#img_2').val(data);
-            }
-        });
-    });
-
-    $(function() {
-        $('#upload_img_3').uploadify({
-            'formData'     : {
-                'timestamp' : '<?php echo $timestamp;?>',
-                'token'     : '<?php echo md5('unique_salt' . $timestamp);?>',
-                'folder':'product/'
-            },
-            'swf'      : '/Public/uploadify/uploadify.swf',
-            'uploader' : INDEX_MODE+'/admin/uploadify/upload',
-            'buttonText':'选择图片',
-            'multi': false,
-            'onUploadSuccess': function (fileObj, data, response) {
-                $('#img_3').val(data);
-            }
-        });
-    });
-
-    $(function() {
-        $('#upload_img_4').uploadify({
-            'formData'     : {
-                'timestamp' : '<?php echo $timestamp;?>',
-                'token'     : '<?php echo md5('unique_salt' . $timestamp);?>',
-                'folder':'product/'
-            },
-            'swf'      : '/Public/uploadify/uploadify.swf',
-            'uploader' : INDEX_MODE+'/admin/uploadify/upload',
-            'buttonText':'选择图片',
-            'multi': false,
-            'onUploadSuccess': function (fileObj, data, response) {
-                $('#img_4').val(data);
-            }
-        });
-    });
-
-
-    $(function() {
-        $('#upload_img_5').uploadify({
-            'formData'     : {
-                'timestamp' : '<?php echo $timestamp;?>',
-                'token'     : '<?php echo md5('unique_salt' . $timestamp);?>',
-                'folder':'product/'
-            },
-            'swf'      : '/Public/uploadify/uploadify.swf',
-            'uploader' : INDEX_MODE+'/admin/uploadify/upload',
-            'buttonText':'选择图片',
-            'multi': true,
-            'auto':false,
-            'queueID':'img5_queue',
-            'onUploadSuccess': function (fileObj, data, response) {
-                var pre_img_url= $('#img_5').val();
-                if(pre_img_url!=''){
-                    img_url=pre_img_url+';\r\n'+data;
-                }else{
-                    img_url=data;
-                }
-                $('#img_5').val( img_url);
-            }
-        });
-    });
-
-    $(function() {
-        $('#upload_img_6').uploadify({
-            'formData'     : {
-                'timestamp' : '<?php echo $timestamp;?>',
-                'token'     : '<?php echo md5('unique_salt' . $timestamp);?>',
-                'folder':'product/'
-            },
-            'swf'      : '/Public/uploadify/uploadify.swf',
-            'uploader' : INDEX_MODE+'/admin/uploadify/upload',
-            'buttonText':'选择图片',
-            'multi': true,
-            'auto':false,
-            'queueID':'img6_queue',
-            'onUploadSuccess': function (fileObj, data, response) {
-                var pre_img_url= $('#img_6').val();
-                if(pre_img_url!=''){
-                    img_url=pre_img_url+';\r\n'+data;
-                }else{
-                    img_url=data;
-                }
-                $('#img_6').val( img_url);
-            }
-        });
-    });
-
     function mobile_img_same_pc(target,orgin){
         var img=$('#img_'+orgin).val();
         if(img==undefined || img==''){

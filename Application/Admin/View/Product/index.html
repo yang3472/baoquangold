@@ -52,6 +52,11 @@
                                     <option value="{$vo.id}" <if condition="$Think.get.product_type eq $vo.id "> selected</if> >{$vo.category_name}</option>
                                 </foreach>
                             </select>
+                            <select name="special" id="special">
+                                <option value="-1" <if condition="$Think.get.special eq '-1' "> selected</if> >是否特选</option>
+                                <option value="0" <if condition="$Think.get.special eq '0' "> selected</if> >非特选</option>
+                                <option value="1" <if condition="$Think.get.special eq '1' "> selected</if> >是特选</option>
+                            </select>
                             <input class="form-control" style="width: 150px" value="{$Think.get.product_name}" id="product_name" name="product_name" placeholder="产品名称" type="text">
                             <input class="form-control" style="width: 150px" value="{$Think.get.material}" id="material" name="material" placeholder="产品材质" type="text">
                             <input class="form-control" style="width: 150px" value="{$Think.get.purpose}" id="purpose" name="purpose" placeholder="产品用途" type="text">
@@ -66,7 +71,7 @@
                             <th>产品名称</th>
                             <th>产品材质</th>
                             <th>产品用途</th>
-                            <th>添加时间</th>
+                            <th>是否特选</th>
                             <th>最近修改时间</th>
                             <th>操作</th>
                         </tr>
@@ -85,7 +90,7 @@
                             <td><a href="{$Think.config.WEB_HOST}pc/#/detail?id={$vo.id}" target="_blank" >{$vo.product_name}</a></td>
                             <td>{$vo.material}</td>
                             <td>{$vo.purpose}</td>
-                            <td>{$vo.create_time}</td>
+                            <td><if condition="$vo.special eq '0'"><a href="javascript:void(0)" onclick="changeSpecial({$vo.id},1)" title="点击可修改" >非特选</a><else /><a href="javascript:void(0)" onclick="changeSpecial({$vo.id},0)" title="点击可修改" style="color: red" >是特选</a></if></td>
                             <td>{$vo.update_time}</td>
                             <td>
                                 <a href="{$Think.config.INDEX_MODE}/admin/product/edit?id={$vo.id}" class="badge badge-success" style="cursor: pointer">编辑</a>
@@ -123,5 +128,22 @@
             );
         }
 
+    }
+
+    function changeSpecial(id,special){
+        MyPost(INDEX_MODE+'/admin/product/changeSpecial',
+                {
+                    id: id,
+                    special:special
+                },
+                null,
+                null,
+                function (data) {
+                    window.location.reload();
+                },
+                function (data, msg, code) {
+                    alert(msg);
+                }
+        );
     }
 </script>

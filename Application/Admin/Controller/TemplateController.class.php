@@ -10,7 +10,7 @@ class TemplateController extends Controller
         $this->assign('menu_id','');
         $admin_name = cookie('admin_name');
         if (!$admin_name) {
-           $this-> redirect(C('INDEX_MODE').'/admin/login/index');
+           $this-> redirect('/admin/login/index');
         }
     }
 }

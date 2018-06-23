@@ -48,7 +48,7 @@ class ProductController extends  TemplateController{
     }
 
     /**
-     * 删除单条资讯
+     * 删除单条商品
      */
     public function delProduct(){
         $id=(int)I('id',0);
@@ -60,6 +60,21 @@ class ProductController extends  TemplateController{
             }else{
                 makeOutPut(-10,'操作失败');
             }
+        }else{
+            makeOutPut(-10,'操作失败');
+        }
+    }
+
+    public function  changeSpecial(){
+        $id=(int)I('id',0);
+        $special=(int)I('special',0);
+        $info= M('product')->where(['id'=>$id])->find();
+        if(!$info){
+            makeOutPut(-10,'产品不存在');
+        }
+        $ret=M('product')->save(['id'=>$id,'special'=>$special]);
+        if($ret){
+            makeSuccOutPut();
         }else{
             makeOutPut(-10,'操作失败');
         }

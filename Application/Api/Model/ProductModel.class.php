@@ -31,7 +31,9 @@ class ProductModel extends  Model{
              $img_type=4;
          }
          $query= M('product')->field(['product.id','product_type','product_name','img_url'])
-             ->join("product_img on product_img.product_id=product.id and img_type={$img_type} ");
+             ->join("product_img on product_img.product_id=product.id and img_type={$img_type} ")
+             ->where(['special'=>0]);
+
          if($getCount){
              return $query->count();
          }
@@ -80,10 +82,11 @@ class ProductModel extends  Model{
              makeOutPut(ReturnCode::PARAMETER_ERROR,'参数错误');
          }
          $where_data['product_type']=$product_type;
+         $where_data['special']=1;
          if($device=='pc'){
-             $where_data['img_type']=1;
+             $where_data['img_type']=3;
          }else if($device=='mobile'){
-             $where_data['img_type']=2;
+             $where_data['img_type']=4;
          }
          $rs= M('product')->field(['product.id','product_type','descrip','product_name','img_url'])
              ->join('product_img on product.id=product_img.product_id')

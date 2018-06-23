@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- start: Meta -->
+    <meta charset="utf-8">
+    <title>后台管理系统</title>
+    <meta name="description" content="后台管理系统">
+    <meta name="author" content="Yang jing qin">
+    <meta name="keyword" content="Metro, Metro UI, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <!-- end: Meta -->
+    <include file="./Application/Admin/View/Public/header.html"/>
+</head>
+
+<body>
+<!-- start: Header -->
+<include file="./Application/Admin/View/Public/right_top.html"/><!--头部-->
+
+<div class="container-fluid-full" style="height: 600px;overflow: auto" >
+    <div class="row-fluid">
+
+        <!-- start: Main Menu -->
+        <include file="./Application/Admin/View/Public/left.html"/><!--左边菜单-->
+        <!-- end: Main Menu -->
+
+        <noscript>
+            <div class="alert alert-block span10">
+                <h4 class="alert-heading">Warning!</h4>
+                <p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
+            </div>
+        </noscript>
+
+        <!-- start: Content -->
+        <div id="content" class="span10">
+
+            <ul class="breadcrumb">
+                <li>
+                    <i class="icon-home"></i>
+                    <a href="#">首页</a>
+                    <i class="icon-angle-right"></i>
+                </li>
+                <li><a href="#">素材管理</a><i class="icon-angle-right"></i></li>
+                <li><a href="#">素材列表</a></li>
+            </ul>
+
+            <div class="panel-body">
+                <form class="search_form" action="" method="get">
+                    <div class="form-inline" style="margin-bottom: 10px">
+                        <input type="text" name="descrip" id="descrip" placeholder="素材描述" value="{$Think.get.descrip}">
+                        <button type="button" class="btn btn-primary" onclick="javascript:$('.search_form').submit()" >搜索</button>
+                    </div>
+                </form>
+
+                <table class="table table-hover table-bordered">
+                    <thead>
+                    <tr>
+                        <th>图片</th>
+                        <th>查看</th>
+                        <th>描述</th>
+                        <th>链接地址</th>
+                        <th>创建时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <foreach name="data"  item="vo">
+                    <tr>
+                        <td style="vertical-align: middle"><img style="width:100px;height: 100px"  src="{$vo.url}"></td>
+                        <td style="vertical-align: middle"><a href="{$vo.url}" target="_blank" >点击查看</a></td>
+                        <td style="vertical-align: middle">{$vo.descrip}</td>
+                        <td style="vertical-align: middle"><span>{$vo.url}</span></td>
+                        <td style="vertical-align: middle">{$vo.create_time}</td>
+                    </tr>
+                    </foreach>
+                    </tbody>
+                </table>
+            </div>
+            <div  style="float: right" class="sabrosus">{$page}</div>
+        </div><!--/.fluid-container-->
+        <!-- end: Content -->
+    </div><!--/#content.span10-->
+</div>
+<include file="./Application/Admin/View/Public/footer.html"/><!--底部-->
+
+</body>
+</html>
+<script type="text/javascript" src="http://img3.job1001.com/js/ZeroClipboard/jquery.zclip.min.js"></script>
+<script>
+    $(document).ready(function(){
+        if ( window.clipboardData ) {
+            $('.copy_btn').click(function() {
+                var url=$(this).prev('span').html()
+                window.clipboardData.setData("Text",url );
+                alert('复制成功！');
+                alert(url);
+            });
+        } else {
+            $(".copy_btn").zclip({
+                path:'http://img3.job1001.com/js/ZeroClipboard/ZeroClipboard.swf',
+                copy:function(){return $(this).prev('span').html();},
+                afterCopy:function(){alert('复制成功！');}
+            });
+        }
+    });
+</script>

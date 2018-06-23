@@ -5,39 +5,13 @@
  * Date: 2018-05-20
  * Time: 18:19
  */
-namespace Admin\model;
+namespace Admin\Model;
 use Think\Myfun\ArrayHelper;
 use Think\Db;
 use Think\Model;
 
-class AdverModel extends  Model{
-    /**广告位位置配置
-     * @var array
-     */
-     private static $position_config=array(
-          array(
-              'id'=>'pc.home.wonderfull',
-              'remark'=>'首页精彩案例轮播（pc端）',
-              'img'=>'/Public/admin/img/index_lunbo.png'
-          ),
-          array(
-              'id'=>'pc.home.fine',
-              'remark'=>'首页精品铸造（pc端）',
-              'img'=>'/Public/admin/img/index_jingpin.png'
-          ),
-          array(
-              'id'=>'pc.handtailor.leaveword.above',
-              'remark'=>'专属定制页留言板上方（pc端）',
-              'img'=>'/Public/admin/img/leaveword_above.png'
-          ),
-     );
+class MediaModel extends  Model{
 
-    /**获取广告为位置配置
-     * @return array
-     */
-     public  static function  getPositionConfig(){
-          return self::$position_config;
-     }
      public function  getDbImgs(){
          $ret=[];
          $product_img_rs= M('product_img')->field(['img_url'])->select();
@@ -52,28 +26,16 @@ class AdverModel extends  Model{
      }
 
     public function getList($condition){
-        $query =M('adver');
+        $query =M('media');
         $where_data = [];
-        //添加时间
-        if ($start_time = ArrayHelper::getVal($condition, 'start_time')) {
-            if ($end_time = ArrayHelper::getVal($condition, 'end_time')) {
-                $where_data['create_time'] = array(array('egt', date('Y-m-d 00:00:00', strtotime($start_time))), array('elt', date('Y-m-d 23:59:59', strtotime($end_time))), 'and');
-            } else {
-                $where_data['create_time'] = array('egt', date('Y-m-d 00:00:00', strtotime($start_time)));
-            }
-        } else {
-            if ($end_time = ArrayHelper::getVal($condition, 'end_time')) {
-                $where_data['create_time'] = array('elt', date('Y-m-d 23:59:59', strtotime($end_time)));
-            }
-        }
-        if($position = ArrayHelper::getVal($condition, 'position')){
-            $where_data['position']=$position;
+        if($descrip = ArrayHelper::getVal($condition, 'descrip')){
+            $where_data['descrip']=array('like',"%{$descrip}%");
         }
         $count      = $query->where($where_data)->count();// 查询满足要求的总记录数
         $Page       = new \Think\Page($count,10);// 实例化分页类 传入总记录数和每页显示的记录数(25)
         $show       = $Page->show();// 分页显示输出
 
-        $rs = $query->where($where_data)->order(['order_sort'=>'asc','create_time' => 'desc'])
+        $rs = $query->where($where_data)->order(['create_time' => 'desc'])
             ->limit($Page->firstRow.','.$Page->listRows)->select();
         return ['data'=>$rs,'page'=>$show];
     }
@@ -85,7 +47,7 @@ class AdverModel extends  Model{
         $id=ArrayHelper::getVal($input,'id');
         $data['position']=ArrayHelper::getVal($input,'position');
         $img_url=ltrim(ArrayHelper::getVal($input,'img_url'));
-        $data['img_url']='/'.ltrim($img_url,'/');
+        $data['img_url']='/'.$img_url;
         $data['href_url']=ltrim(ArrayHelper::getVal($input,'href_url'),'/');
         $data['title']=ArrayHelper::getVal($input,'title');
         $data['descrip']=ArrayHelper::getVal($input,'descrip');

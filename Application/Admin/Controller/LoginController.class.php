@@ -38,7 +38,7 @@ class LoginController extends Controller
     {
         cookie('admin_id',null);
         cookie('admin_name',null);
-        $this->redirect(C('INDEX_MODE').'/admin/login/index');
+        $this->redirect('/admin/login/index');
     }
 
     /**设置cookie

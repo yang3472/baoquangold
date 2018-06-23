@@ -4,14 +4,15 @@ $config_common=array(
     /* 数据库设置 */
     'DB_TYPE'               =>  'mysql',     // 数据库类型
     'DB_NAME'               =>  'baoquangold',          // 数据库名
-    'URL_MODEL'             =>  2,       // URL访问模式,可选参数0、1、2、3,代表以下四种模式：
+    'URL_MODEL'             =>  1,       // URL访问模式,可选参数0、1、2、3,代表以下四种模式：
 );
 
 if(APP_PRO){
     $config= array(
-        'DB_HOST'               =>  '127.0.0.1', // 服务器地址
-        'DB_USER'               =>  'root',      // 用户名
-        'DB_PWD'                =>  'root',          // 密码
+        'DB_NAME'               =>  'my4282159',          // 数据库名
+        'DB_HOST'               =>  'my4282159.xincache1.cn', // 服务器地址
+        'DB_USER'               =>  'my4282159',      // 用户名
+        'DB_PWD'                =>  'H3f5S9t5',          // 密码
         'DB_PORT'               =>  '3306',        // 端口
         'WEB_HOST'=>'http://www.baoquangold.com/',  //网站域名
     );

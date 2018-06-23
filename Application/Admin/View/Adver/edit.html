@@ -53,16 +53,10 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="control-group">
-                                <label class="control-label">
-                                    <span style="color: red">*</span>图片<br/>
-                                </label>
+                            <div class="control-group" >
+                                <label class="control-label" for="img_url"><span style="color: red">*</span>图片地址</label>
                                 <div class="controls">
-                                    <input type="file" name="file_upload"  id="file_upload"  multiple="true" >
-                                    <div>
-                                        <input id="img_url" class="input-xlarge" readonly type="text" value="{$data.img_url|default=''}"  style="width: 350px" >
-                                        <span class="btn btn-small btn-danger" style="cursor: pointer" onclick="clearImg('img_url')" >清除</span>
-                                    </div>
+                                    {$Think.config.WEB_HOST}<input class="input-xlarge" value="{$data.img_url|default=''}" id="img_url" placeholder="请输入图片地址" type="text">
                                 </div>
                             </div>
 
@@ -149,16 +143,20 @@
             alert('请选择广告位置');
             return;
         }
-        if(img_url=='' || img_url.indexOf('/')==-1){
+        if(img_url==''){
             alert('请先上传图片');
+            return;
+        }
+        if(img_url.indexOf('http')>=0){
+            alert('图片地址格式不正确');
             return;
         }
         if(href_url==''){
             alert('请输入跳转地址');
             return;
         }
-        if(title==''){
-            alert('请输入标题');
+        if(href_url.indexOf('http')>=0){
+            alert('跳转地址格式不正确');
             return;
         }
         if(order_sort==''){

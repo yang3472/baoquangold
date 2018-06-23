@@ -8,7 +8,7 @@
 namespace Admin\Controller;
 use Think\Controller;
 class UploadifyController{
-     public  static $imgFolder=['/product/','/adver/'];
+     public  static $imgFolder=['/product/','/adver/','/media/'];
      public function  upload(){
          // Define a destination
          $folder=isset($_POST['folder']) && $_POST['folder']?'/'.$_POST['folder']:'';

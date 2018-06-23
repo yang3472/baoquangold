@@ -1,39 +1,45 @@
 <div id="sidebar-left" class="span2">
     <div class="nav-collapse sidebar-nav">
         <ul class="nav nav-tabs nav-stacked main-menu">
-            <li <if condition="$menu_id eq 'leaveword'"> class="active" <else/> class=""  </if> ><a href="{$Think.config.INDEX_MODE}/admin/leaveword/index.html"><i class="icon-envelope"></i><span class="hidden-tablet"> 留言管理</span></a></li>
+            <li <if condition="$menu_id eq 'leaveword'"> class="active" <else/> class=""  </if> ><a href="{:U('admin/leaveword/index','','html')}"><i class="icon-envelope"></i><span class="hidden-tablet"> 留言管理</span></a></li>
             <li>
                 <a class="dropmenu" href="#"><i class="icon-tasks"></i><span>产品管理</span></a>
                 <ul>
-                    <li <if condition="$menu_id eq 'product_list'"> class="active" <else/> class=""  </if> ><a class="submenu" href="{$Think.config.INDEX_MODE}/admin/product/index.html">&nbsp;&nbsp;<i class="icon-file-alt"></i><span class="hidden-tablet">产品列表</span></a></li>
-                    <li <if condition="$menu_id eq 'product_edit'"> class="active" <else/> class=""  </if>><a class="submenu" href="{$Think.config.INDEX_MODE}/admin/product/edit.html">&nbsp;&nbsp;<i class="icon-file-alt"></i><span class="hidden-tablet">添加/编辑产品</span></a></li>
+                    <li <if condition="$menu_id eq 'product_list'"> class="active" <else/> class=""  </if> ><a class="submenu" href="{:U('admin/product/index','','html')}">&nbsp;&nbsp;<i class="icon-file-alt"></i><span class="hidden-tablet">产品列表</span></a></li>
+                    <li <if condition="$menu_id eq 'product_edit'"> class="active" <else/> class=""  </if>><a class="submenu" href="{:U('admin/product/edit','','html')}">&nbsp;&nbsp;<i class="icon-file-alt"></i><span class="hidden-tablet">添加/编辑产品</span></a></li>
                 </ul>
             </li>
 
             <li>
                 <a class="dropmenu" href="#"><i class="icon-eye-open"></i><span class="hidden-tablet">广告管理</span></a>
                 <ul>
-                    <li <if condition="$menu_id eq 'adver_list'"> class="active" <else/> class=""  </if> ><a class="submenu" href="{$Think.config.INDEX_MODE}/admin/adver/index.html">&nbsp;&nbsp;<i class="icon-file-alt"></i><span class="hidden-tablet">广告列表</span></a></li>
-                    <li <if condition="$menu_id eq 'adver_edit'"> class="active" <else/> class=""  </if>><a class="submenu" href="{$Think.config.INDEX_MODE}/admin/adver/edit.html">&nbsp;&nbsp;<i class="icon-file-alt"></i><span class="hidden-tablet">添加/编辑广告</span></a></li>
+                    <li <if condition="$menu_id eq 'adver_list'"> class="active" <else/> class=""  </if> ><a class="submenu" href="{:U('admin/adver/index','','html')}">&nbsp;&nbsp;<i class="icon-file-alt"></i><span class="hidden-tablet">广告列表</span></a></li>
+                    <li <if condition="$menu_id eq 'adver_edit'"> class="active" <else/> class=""  </if>><a class="submenu" href="{:U('admin/adver/edit','','html')}">&nbsp;&nbsp;<i class="icon-file-alt"></i><span class="hidden-tablet">添加/编辑广告</span></a></li>
                 </ul>
             </li>
 
             <li>
                 <a class="dropmenu" href="#"><i class="icon-dashboard"></i><span class="hidden-tablet">新闻管理</span></a>
                 <ul>
-                    <li <if condition="$menu_id eq 'news_list'"> class="active" <else/> class=""  </if> ><a class="submenu" href="{$Think.config.INDEX_MODE}/admin/news/index.html">&nbsp;&nbsp;<i class="icon-file-alt"></i><span class="hidden-tablet">新闻列表</span></a></li>
-                    <li <if condition="$menu_id eq 'news_edit'"> class="active" <else/> class=""  </if>><a class="submenu" href="{$Think.config.INDEX_MODE}/admin/news/edit.html">&nbsp;&nbsp;<i class="icon-file-alt"></i><span class="hidden-tablet">添加/编辑新闻</span></a></li>
+                    <li <if condition="$menu_id eq 'news_list'"> class="active" <else/> class=""  </if> ><a class="submenu" href="{:U('admin/news/index','','html')}">&nbsp;&nbsp;<i class="icon-file-alt"></i><span class="hidden-tablet">新闻列表</span></a></li>
+                    <li <if condition="$menu_id eq 'news_edit'"> class="active" <else/> class=""  </if>><a class="submenu" href="{:U('admin/news/edit','','html')}">&nbsp;&nbsp;<i class="icon-file-alt"></i><span class="hidden-tablet">添加/编辑新闻</span></a></li>
                 </ul>
             </li>
             <li>
                 <a class="dropmenu" href="#"><i class="icon-edit"></i><span class="hidden-tablet">后台用户管理</span></a>
                 <ul>
-                    <li <if condition="$menu_id eq 'user_list'"> class="active" <else/> class=""  </if> ><a class="submenu" href="{$Think.config.INDEX_MODE}/admin/user/index.html">&nbsp;&nbsp;<i class="icon-file-alt"></i><span class="hidden-tablet">用户列表</span></a></li>
-                    <li <if condition="$menu_id eq 'user_add'"> class="active" <else/> class=""  </if>><a class="submenu" href="{$Think.config.INDEX_MODE}/admin/user/addUser.html">&nbsp;&nbsp;<i class="icon-file-alt"></i><span class="hidden-tablet">添加/编辑用户</span></a></li>
+                    <li <if condition="$menu_id eq 'user_list'"> class="active" <else/> class=""  </if> ><a class="submenu" href="{:U('admin/user/index','','html')}">&nbsp;&nbsp;<i class="icon-file-alt"></i><span class="hidden-tablet">用户列表</span></a></li>
+                    <li <if condition="$menu_id eq 'user_add'"> class="active" <else/> class=""  </if>><a class="submenu" href="{:U('admin/user/addUser','','html')}">&nbsp;&nbsp;<i class="icon-file-alt"></i><span class="hidden-tablet">添加/编辑用户</span></a></li>
                 </ul>
             </li>
-
-            <li <if condition="$menu_id eq 'delete_file'"> class="active" <else/> class=""  </if> ><a href="{$Think.config.INDEX_MODE}/admin/adver/deleteFile"><i class="icon-list-alt"></i><span class="hidden-tablet">清理垃圾图片</span></a></li>
+            <li>
+                <a class="dropmenu" href="#"><i class="icon-edit"></i><span class="hidden-tablet">素材管理</span></a>
+                <ul>
+                    <li <if condition="$menu_id eq 'media_add'"> class="active" <else/> class=""  </if> ><a class="submenu" href="{:U('admin/media/add','','html')}">&nbsp;&nbsp;<i class="icon-file-alt"></i><span class="hidden-tablet">上传素材</span></a></li>
+                    <li <if condition="$menu_id eq 'media_list'"> class="active" <else/> class=""  </if>><a class="submenu" href="{:U('admin/media/index','','html')}">&nbsp;&nbsp;<i class="icon-file-alt"></i><span class="hidden-tablet">素材列表</span></a></li>
+                    <li <if condition="$menu_id eq 'media_delete'"> class="active" <else/> class=""  </if>><a class="submenu" href="{:U('admin/media/deleteFile','','html')}">&nbsp;&nbsp;<i class="icon-file-alt"></i><span class="hidden-tablet">清理垃圾素材</span></a></li>
+                </ul>
+            </li>
         <!--
        <li><a href="typography.html"><i class="icon-font"></i><span class="hidden-tablet"> Typography</span></a></li>
        <li><a href="gallery.html"><i class="icon-picture"></i><span class="hidden-tablet"> Gallery</span></a></li>

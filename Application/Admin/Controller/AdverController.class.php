@@ -42,6 +42,7 @@ class AdverController extends  TemplateController{
         if(!ArrayHelper::getVal($data,'position')){
             $data['position']='';
         }
+        $data['img_url']=$data['img_url']?ltrim($data['img_url'],'/'):'';
         $this->assign('menu_id','adver_edit');
         $this->assign('id',$id);
         $this->assign('data',$data);
@@ -65,26 +66,5 @@ class AdverController extends  TemplateController{
         }else{
             makeOutPut(-10,'操作失败');
         }
-    }
-
-    /**
-     * 删除多余的图片
-     */
-    public function  deleteFile(){
-        $adver_model= new AdverModel();
-        $all_db_imgs= $adver_model->getDbImgs();
-        $folder=UploadifyController::$imgFolder;
-        foreach($folder as $fv){
-            $relative_path='/Public/uploaded/'.trim($fv,'/');
-            $absolute_path=$_SERVER['DOCUMENT_ROOT'].$relative_path;
-            $file_arr=scanFile($absolute_path);
-            foreach($file_arr as $filename ){
-                if(!in_array($relative_path.'/'.$filename,$all_db_imgs)){
-                    @unlink($absolute_path.'/'.$filename);
-                }
-            }
-        }
-        $this->assign('menu_id','delete_file');
-        $this->display('deleteFile');
     }
 }

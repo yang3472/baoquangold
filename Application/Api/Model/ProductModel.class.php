@@ -25,10 +25,12 @@ class ProductModel extends  Model{
          if(!in_array($device,self::$device_arr)){
               makeOutPut(-10,'device--设备参数不正确');
          }
+         //pc端和手机端暂时使用同一套
          if($device=='pc'){
              $img_type=3;
          }else if($device=='mobile'){
-             $img_type=4;
+             $img_type=3;
+             //$img_type=4;
          }
          $query= M('product')->field(['product.id','product_type','product_name','img_url'])
              ->join("product_img on product_img.product_id=product.id and img_type={$img_type} ")
@@ -64,10 +66,12 @@ class ProductModel extends  Model{
                  ])
              ->where(['id'=>$id])
              ->find();
+         //pc端和手机端暂时使用同一套
           if($device=='pc'){
              $img_type=5;
           }else{
-             $img_type=6;
+              $img_type=5;
+              //$img_type=6;
           }
           $img=M('product_img')->where(['product_id'=>$id,'img_type'=>$img_type])->getField('img_url',true);
           $rs['marque']=$img?$img:[];
@@ -83,10 +87,12 @@ class ProductModel extends  Model{
          }
          $where_data['product_type']=$product_type;
          $where_data['special']=1;
+         //pc端和手机端暂时使用同一套
          if($device=='pc'){
              $where_data['img_type']=3;
          }else if($device=='mobile'){
-             $where_data['img_type']=4;
+             $where_data['img_type']=3;
+             //$where_data['img_type']=4;
          }
          $rs= M('product')->field(['product.id','product_type','descrip','product_name','img_url'])
              ->join('product_img on product.id=product_img.product_id')
